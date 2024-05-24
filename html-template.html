@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            line-height: 15px;
+            color: rgb(5, 77, 69);
+        }
+        .pdf-body{
+            background-image: url('./assets/images/5841385.jpg');
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 29.70cm;
+            /* width: 21cm; */
+            padding: 10px;
+            color: rgb(5, 77, 69);
+        }
+
+        .terms-container{
+            border: 2px solid rgb(5, 77, 69);
+            border-radius: 35px 35px 0 0;
+            padding: 5px;
+        }
+        ol li{
+            line-height: 25px;
+        }
+        .red {
+            background-color: red;
+        }
+
+        footer{
+            position: fixed;
+            bottom: 0;
+            right: 10px;
+            left: 10px;
+        }
+
+        table thead th{
+            padding: 15px !important;
+            background-color: rgb(221, 174, 79) !important;
+            color: white;
+        }
+        table td {
+            padding: 10px !important;
+        }
+        table th {
+            padding: 10px !important;
+        }
+
+        table th:first-child{
+            border-radius:10px 0 0 10px;
+            
+        }
+        
+        table th:last-child{
+            border-radius:0 10px 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="pdf-body">
+        <div class="pdf-container p-0 m-0">
+            <div class="customer-details text-center">
+                <div class="logo">
+                    <img src="./assets/images/main_logo.png" width="250" alt="OOG STUDIO">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="bill-to-details">
+                        <h4 class="fw-bold fs-4">BILL TO:</h4>
+                        <h5 class="template-customer-name fw-bold fs-5">customer Name</h5>
+                        <p class="template-customer-address">customer address</p>
+                        <p class="template-customer-email">skarts@mail.com</p>
+                        <p class="template-customer-phone">+91 9695652626</p>
+                    </div>
+                </div>
+                <div class="col-6 align-content-center text-end">
+                    <div class="invoice-details">
+                        <h3 class=" fw-bold fs-4">Invoice : <span class="template-invoice-id">#0001</span></h3>
+                        <h5 class="template-invoice-date">20 / 30 / 2024</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="project-details-container mt-2">
+                <h5 class="fs-5 fw-bold" for="">Project Details : <span class="template-project-detail fw-normal">Photo Graphy</span></h5>
+            </div>
+            <div class="table-container mt-3">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>S.No</th>
+                            <th>Service</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pdf-serivce-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="accountDetails">
+            <h5 class="fw-bold fs-5">Account Details :</h5>
+            <p class="fw-bold">Account No: <span class="fw-normal account-no"></span></p>
+            <p class="fw-bold">IFSC: <span class="fw-normal account-ifsc"></span></p>
+            <p class="fw-bold">UPI: <span class="fw-normal account-upi"></span></p>
+        </div>
+        <div class="authrized-container text-end">
+            <h6 class="fw-bold p-5">AUTHORIZED BY ___________________ </h6>
+        </div>
+        <footer>
+            <div class="terms-container">
+                <ol class="template-terms-conditions">
+                    <li>sdf</li>
+                    <li>fasdf</li>
+                    <li>gasdf</li>
+                </ol>
+                <div class="notes-container">
+                    <h6 class="fw-bold">Notes :-</h6>
+                    <p class="template-notes">Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita veritatis quod modi laudantium incidunt ea tempore in debitis maxime iste, tempora natus exercitationem. Et a velit non aut dolorum repudiandae?</p>
+                </div>
+            </div>
+            <p style="background-color: rgb(5, 77, 69);text-align: center; width: 100%; color: #fff; padding: 20px;">&COPY;Copyrights 2024.</p>
+        </footer>
+    </div>
+</body>
+</html>
