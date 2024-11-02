@@ -187,6 +187,46 @@ window.addEventListener("load", (event) => {
         
     }
 
+    function amountToText(n) {
+        if (n < 0)
+            return false;
+        
+        // Arrays to hold words for single-digit, double-digit, and below-hundred numbers
+        single_digit = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine']
+        double_digit = ['Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen']
+        below_hundred = ['Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety']
+        
+        if (n === 0) return 'Zero';
+        
+        // Recursive function to translate the number into words
+        function translate(n) {
+            let word = "";
+            if (n < 10) {
+                word = single_digit[n] + ' ';
+            } else if (n < 20) {
+                word = double_digit[n - 10] + ' ';
+            } else if (n < 100) {
+                let rem = translate(n % 10);
+                word = below_hundred[Math.floor(n / 10) - 2] + ' ' + rem;
+            } else if (n < 1000) {
+                word = single_digit[Math.trunc(n / 100)] + ' Hundred ' + translate(n % 100);
+            } else if (n < 100000) {
+                word = translate(Math.trunc(n / 1000)).trim() + ' Thousand ' + translate(n % 1000);
+            } else if (n < 10000000) {
+                word = translate(Math.trunc(n / 100000)).trim() + ' Lakh ' + translate(n % 100000);
+            } else if (n < 1000000000) {
+                word = translate(Math.trunc(n / 10000000)).trim() + ' Crore ' + translate(n % 10000000);
+            } else {
+                word = translate(Math.trunc(n / 1000000000)).trim() + ' Billion ' + translate(n % 1000000000);
+            }
+            return word.trim();
+        }
+        
+        // Get the result by translating the given number
+        let result = translate(n);
+        return result.trim() + '.';
+    }
+
     function printPDFTemplate() 
     {
         let serviceTbody = '';
@@ -303,6 +343,7 @@ window.addEventListener("load", (event) => {
                         <td><i class="fa-solid fa-indian-rupee-sign"></i> ${serviceTotle.Total??0}</td>
                     </tr>`;
     
+            document.querySelector('iframe').contentWindow.document.querySelector(".amount-in-word").innerHTML = amountToText(serviceTotle.Total??0);
             document.querySelector('iframe').contentWindow.document.querySelector('#pdf-serivce-tbody').innerHTML = serviceTbody;
 
             // Print document
