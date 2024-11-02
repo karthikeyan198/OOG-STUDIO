@@ -30,7 +30,7 @@ window.addEventListener("load", (event) => {
     let termsAndConditions = [
         '5% of Amount to be paid after the booking is Confirmed',
         '75% of Amount to be paid after the event was Completed',
-        'Remaining 2-% of amount to be paid agter the total working process Completed',
+        'Remaining 20% of amount to be paid agter the total working process Completed',
     ];
     let notes = 'If any quries about the order details please visit out Studio directly for you convience.';
 
