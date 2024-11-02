@@ -19,9 +19,12 @@ window.addEventListener("load", (event) => {
     // }
     
     let AccuntDetails = {
+        AC_NAME : "Venkatesh",
         AC_NO : 201012522348,
+        BANK : "Indusind Bank",
+        BRANCH : "Dharmapuri",
         IFSC : 'INDB0000202',
-        UPI : 'oogphotography@oksbi'
+        UPI : 'oogphotography@oksbi',
     }
 
     let termsAndConditions = [
@@ -249,8 +252,11 @@ window.addEventListener("load", (event) => {
             document.querySelector('iframe').contentWindow.document.querySelector('.template-notes').innerText = notes;    
 
             // account details
+            document.querySelector('iframe').contentWindow.document.querySelector('.account-holder-name').innerHTML = AccuntDetails.AC_NAME;    
             document.querySelector('iframe').contentWindow.document.querySelector('.account-no').innerHTML = AccuntDetails.AC_NO;    
+            document.querySelector('iframe').contentWindow.document.querySelector('.bank-name').innerHTML = AccuntDetails.BANK;    
             document.querySelector('iframe').contentWindow.document.querySelector('.account-ifsc').innerHTML = AccuntDetails.IFSC;    
+            document.querySelector('iframe').contentWindow.document.querySelector('.branch').innerHTML = AccuntDetails.BRANCH;    
             document.querySelector('iframe').contentWindow.document.querySelector('.account-upi').innerHTML = AccuntDetails.UPI;    
             
             // customer details
