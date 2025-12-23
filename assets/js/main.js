@@ -18,7 +18,7 @@ window.addEventListener("load", (event) => {
     //     // })
     // }
     
-    let AccuntDetails = {
+    let AccountDetails = {
         AC_NAME : "Venkatesh",
         AC_NO : 201012522348,
         BANK : "Indusind Bank",
@@ -98,7 +98,7 @@ window.addEventListener("load", (event) => {
     })
 
     let serviceData = [];
-    let serviceTotle = [];
+    let serviceTotle = {};
     getServiceData();
 
     function getServiceData() {
@@ -191,10 +191,9 @@ window.addEventListener("load", (event) => {
         if (n < 0)
             return false;
         
-        // Arrays to hold words for single-digit, double-digit, and below-hundred numbers
-        single_digit = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine']
-        double_digit = ['Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen']
-        below_hundred = ['Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety']
+        const single_digit = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine']
+        const double_digit = ['Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen']
+        const below_hundred = ['Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety']
         
         if (n === 0) return 'Zero';
         
@@ -281,40 +280,42 @@ window.addEventListener("load", (event) => {
         
         if(errorCount == 0 && serviceData.length != 0) {
 
+            const iframeDoc = document.querySelector('iframe').contentWindow.document;
+
             // terms and conditions with notes
-            let conditions = "";
+            // let conditions = "";
 
-            termsAndConditions.forEach(function(value) {
-                conditions+=`<li>${value}</li>`;
-            })
+            // termsAndConditions.forEach(function(value) {
+            //     conditions+=`<li>${value}</li>`;
+            // })
 
-            document.querySelector('iframe').contentWindow.document.querySelector('.template-terms-conditions').innerHTML = conditions;    
-            document.querySelector('iframe').contentWindow.document.querySelector('.template-notes').innerText = notes;    
+            // iframeDoc.querySelector('.template-terms-conditions').innerHTML = conditions;    
+            // iframeDoc.querySelector('.template-notes').innerText = notes;    
 
             // account details
-            document.querySelector('iframe').contentWindow.document.querySelector('.account-holder-name').innerHTML = AccuntDetails.AC_NAME;    
-            document.querySelector('iframe').contentWindow.document.querySelector('.account-no').innerHTML = AccuntDetails.AC_NO;    
-            document.querySelector('iframe').contentWindow.document.querySelector('.bank-name').innerHTML = AccuntDetails.BANK;    
-            document.querySelector('iframe').contentWindow.document.querySelector('.account-ifsc').innerHTML = AccuntDetails.IFSC;    
-            document.querySelector('iframe').contentWindow.document.querySelector('.branch').innerHTML = AccuntDetails.BRANCH;    
-            document.querySelector('iframe').contentWindow.document.querySelector('.account-upi').innerHTML = AccuntDetails.UPI;    
+            iframeDoc.querySelector('.account-holder-name').innerHTML = AccountDetails.AC_NAME;    
+            iframeDoc.querySelector('.account-no').innerHTML = AccountDetails.AC_NO;    
+            iframeDoc.querySelector('.bank-name').innerHTML = AccountDetails.BANK;    
+            iframeDoc.querySelector('.account-ifsc').innerHTML = AccountDetails.IFSC;    
+            iframeDoc.querySelector('.branch').innerHTML = AccountDetails.BRANCH;    
+            iframeDoc.querySelector('.account-upi').innerHTML = AccountDetails.UPI;    
             
             // customer details
-            document.querySelector('iframe').contentWindow.document.querySelector('.template-customer-name').innerText = customer_name;    
-            document.querySelector('iframe').contentWindow.document.querySelector('.template-customer-phone').innerText = customer_phone;
+            iframeDoc.querySelector('.template-customer-name').innerText = customer_name;    
+            iframeDoc.querySelector('.template-customer-phone').innerText = customer_phone;
             
             if(customer_email == '') {
-                document.querySelector('iframe').contentWindow.document.querySelector('.template-customer-email').classList.add('d-none');
+                iframeDoc.querySelector('.template-customer-email').classList.add('d-none');
             } else {
-                document.querySelector('iframe').contentWindow.document.querySelector('.template-customer-email').classList.remove('d-none');
-                document.querySelector('iframe').contentWindow.document.querySelector('.template-customer-email').innerText = customer_email;
+                iframeDoc.querySelector('.template-customer-email').classList.remove('d-none');
+                iframeDoc.querySelector('.template-customer-email').innerText = customer_email;
             }
     
             if(customer_address == '') {
-                document.querySelector('iframe').contentWindow.document.querySelector('.template-customer-address').classList.add('d-none');
+                iframeDoc.querySelector('.template-customer-address').classList.add('d-none');
             } else {
-                document.querySelector('iframe').contentWindow.document.querySelector('.template-customer-address').classList.remove('d-none');
-                document.querySelector('iframe').contentWindow.document.querySelector('.template-customer-address').innerText = customer_address;
+                iframeDoc.querySelector('.template-customer-address').classList.remove('d-none');
+                iframeDoc.querySelector('.template-customer-address').innerText = customer_address;
             }
 
             // Invoice details and project details
@@ -324,18 +325,30 @@ window.addEventListener("load", (event) => {
                 invoiceDate = formatDate(invoiceDate);
             }
 
-            document.querySelector('iframe').contentWindow.document.querySelector('.template-invoice-id').innerText = invoice_no;
-            document.querySelector('iframe').contentWindow.document.querySelector('.template-invoice-date').innerText = invoiceDate;
-            document.querySelector('iframe').contentWindow.document.querySelector('.template-project-detail').innerText = projectName;
+            iframeDoc.querySelector('.template-invoice-id').innerText = invoice_no;
+            iframeDoc.querySelector('.template-invoice-date').innerText = invoiceDate;
+            iframeDoc.querySelector('.template-project-detail').innerText = projectName;
     
-            serviceData.forEach(element => {
-                sno+=1;
-                serviceTbody+=`<tr>
-                    <td>${sno}</td>
-                    <td>${element.service}</td>
-                    <td>${element.amount}</td>
-                </tr>`;
-            });
+            const totalRows = 10;
+            const loopLength = Math.max(totalRows, serviceData.length);
+
+            for (let i = 0; i < loopLength; i++) {
+                if (i < serviceData.length) {
+                    const element = serviceData[i];
+                    sno = i + 1;
+                    serviceTbody+=`<tr>
+                        <td>${sno}</td>
+                        <td>${element.service}</td>
+                        <td>${element.amount}</td>
+                    </tr>`;
+                } else {
+                    serviceTbody+=`<tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                        <td></td>
+                    </tr>`;
+                }
+            }
     
             serviceTbody+=`<tr>
                         <td></td>
@@ -343,13 +356,19 @@ window.addEventListener("load", (event) => {
                         <td><i class="fa-solid fa-indian-rupee-sign"></i> ${serviceTotle.Total??0}</td>
                     </tr>`;
     
-            document.querySelector('iframe').contentWindow.document.querySelector(".amount-in-word").innerHTML = amountToText(serviceTotle.Total??0);
-            document.querySelector('iframe').contentWindow.document.querySelector('#pdf-serivce-tbody').innerHTML = serviceTbody;
+            iframeDoc.querySelector(".amount-in-word").innerHTML = amountToText(serviceTotle.Total??0);
+            iframeDoc.querySelector('#pdf-serivce-tbody').innerHTML = serviceTbody;
+
+            const pdfTable = iframeDoc.querySelector('#pdf-serivce-tbody').closest('table');
+            if (pdfTable) {
+                pdfTable.style.border = '2px solid green';
+                pdfTable.style.borderCollapse = 'collapse';
+                pdfTable.querySelectorAll('th, td').forEach(cell => cell.style.border = '1px solid green');
+            }
 
             // Print document
-            const htmlElement = document.querySelector('iframe').contentWindow;
-            htmlElement.focus();
-            htmlElement.print();
+            iframeDoc.defaultView.focus();
+            iframeDoc.defaultView.print();
         }
     }
 
